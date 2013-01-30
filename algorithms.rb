@@ -1,10 +1,14 @@
+require 'benchmark'
+
+$THRESHOLD = 32 #Requires experimental adjustment for Processor Architecture on a case-by-case basis.
 def strassen(a,b)
     aRows = a.length
     aCols = a[0].length
     bRows = b.length
     bCols = b[0].length
-    if (aCols == 1)
-       return c = [[a[0][0] * b[0][0]]] 
+    #Break Point
+    if (aCols <= $THRESHOLD)
+       return c = classical(a, b)
     elsif (aCols == bRows)
         a_11, a_12, a_21, a_22, b_11, b_12, b_21, b_22, c_11, c_12, c_21, c_22 = Array.new(12){Array.new(aRows/2) { Array.new(bCols/2,0) }}
         (0...aRows).each do |i|
@@ -103,7 +107,7 @@ def fill(n)
     (0...n).each do |i|
         value[i] = []
         (0...n).each do |j|
-            value[i][j] = Random.rand(1000)
+            value[i][j] = Random.rand() * 1000
         end
     end
     value
@@ -129,6 +133,10 @@ if __FILE__ == $PROGRAM_NAME
             puts resultC.map { |x| x.inspect }.join("\n")
             puts "Error Bound:\n"
             puts simpleMatrixOperation(resultC, resultS, false).map { |x| x.inspect }.join("\n")
+
+            #For Benchmarking Purposes
+            #puts Benchmark.measure {strassen(a,b)}
+            #puts Benchmark.measure {classical(a,b)}
         else
             puts "Please input a dimension that is a power of two."
         end
