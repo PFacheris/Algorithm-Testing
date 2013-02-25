@@ -4,8 +4,7 @@ Algorithm Testing
 NxN-Dimensional-Array-Operations:
 Matrix computation test in Ruby.
 Implements matrix multiplication on multidimensional arrays using the classical method and Strassen's Algorithm.
-
-*Note: Testing verson, currently only works for N=2^s dimensional arrays.
+*Only works for N=2^s dimensional arrays.
 
 Polynomial Derivative Approximation:
 Shaw-Traub Algorithm test for evaluating n normalized derivatives of a polynomial declared by an input file.
